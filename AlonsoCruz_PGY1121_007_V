@@ -1,0 +1,120 @@
+print("LD v1.2.2")
+print()
+print("|>============---------< Bienvenido >---------============<|")
+
+class Lote:
+    def __init__(self, numero, tamaño, precio):
+        self.numero = numero
+        self.tamaño = tamaño
+        self.precio = precio
+        self.vendido = False
+
+
+class Cliente:
+    def __init__(self, rut, nombre, telefono, email):
+        self.rut = rut
+        self.nombre = nombre
+        self.telefono = telefono
+        self.email = email
+
+
+def mostrar_disponibilidad_lotes(lotes):
+    print("Disponibilidad de lotes:")
+    print()
+    for i in range(len(lotes)):
+        for j in range(len(lotes[i])):
+            if lotes[i][j].vendido:
+                print("[X]", end=" ")
+            else:
+                print("[ ]", end=" ")
+        print()
+
+def seleccionar_lote(lotes, clientes):
+    fila = int(input("Ingrese la fila del lote => "))
+    columna = int(input("Ingrese la columna del lote => "))
+    lote = lotes[fila][columna]
+
+    if lote.vendido == True:
+        print()
+        print("El lote seleccionado no esta disponible. Por favor, elija otro.")
+    else:
+        print()
+        rut = input("Ingrese su RUT => ")
+        nombre = input("Ingrese su nombre completo => ")
+        telefono = input("Ingrese su telefono => ")
+        email = input("Ingrese su email => ")
+        print()
+        cliente = Cliente(rut, nombre, telefono, email)
+        lote.vendido = True
+        clientes.append(cliente)
+        print("Lote seleccionado correctamente.")
+
+
+def ver_detalles_lote(lotes):
+    fila = int(input("Ingrese la fila del lote seleccionado => "))
+    columna = int(input("Ingrese la columna del lote seleccionado => "))
+    print()
+    lote = lotes[fila][columna]
+    print("Detalles del lote seleccionado:")
+    print()
+    print("Numero de lote =>", lote.numero)
+    print("Tamaño del terreno =>", lote.tamaño)
+    print("Precio =>", lote.precio, "$")
+
+
+def ver_clientes(clientes):
+    print("Clientes que han comprado un lote:")
+    print()
+    for cliente in clientes:
+        print("RUT =>", cliente.rut)
+        print("Nombre completo =>", cliente.nombre)
+        print("Telefono =>", cliente.telefono)
+        print("Email =>", cliente.email)
+
+
+def main():
+    # Cargar lotes
+    lotes = [
+        [Lote(1, "100 Km²", 10000), Lote(2, "144 Km²", 14400), Lote(3, "64 Km²", 6400), Lote(4, "225 Km²", 22500), Lote(5, "120 Km²", 12000)],
+        [Lote(6, "225 Km²", 22500), Lote(7, "100 Km²", 10000), Lote(8, "81 Km²", 8100), Lote(9, "196 Km²", 19600), Lote(10, "121 Km²", 12100)],
+        [Lote(11, "196 Km²", 19600), Lote(12, "121 Km²", 12100), Lote(13, "49 Km²", 4900), Lote(14, "100 Km²", 10000), Lote(15, "144 Km²", 14400)],
+        [Lote(16, "361 Km²", 36100), Lote(17, "196 Km²", 19600), Lote(18,"36 Km²", 3600), Lote(19, "289 Km²", 28900), Lote(20, "169 Km²", 16900)]
+        ]
+
+    # Lista de clientes
+    clientes = []
+
+    while True:
+        print()
+        print("============================================================")
+        print("==----------------< Seleccione una opcion >---------------==")
+        print("============================================================")
+        print("==---==>--[1]>-- Ver Disponibilidad De Lotes -------------==")
+        print("==---==>--[2]>-- Seleccionar Un Lote ---------------------==")
+        print("==---==>--[3]>-- Ver Detalles Del Lote Selecionado -------==")
+        print("=----==>--[4]>-- Ver Clientes ----------------------------==")
+        print("=----==>--[5]>-- Salir -----------------------------------==")
+        print("============================================================")
+        print()
+
+        opcion = input("Ingrese una opcion ===> ")
+        print()
+
+        if opcion == "1":
+            mostrar_disponibilidad_lotes(lotes)
+        elif opcion == "2":
+            seleccionar_lote(lotes, clientes)
+        elif opcion == "3":
+            ver_detalles_lote(lotes)
+        elif opcion == "4":
+            ver_clientes(clientes)
+        elif opcion == "5":
+            print()
+            print("|>========----< Hasta Pronto >----========<|")
+            break
+        else:
+            print("Opcion invalida. Por favor, ingrese una opcion valida.")
+
+
+if __name__ == "__main__":
+    main()
